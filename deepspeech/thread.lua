@@ -18,7 +18,7 @@ function Handler:new()
 	self.thread.get  = love.thread.getChannel("dshandler-in")
 	self.thread.give = love.thread.getChannel("dshandler-out")
 
-	success, self.model.sample_rate = self.speech.init( {model = path .. "ds-0.9.3.pbmm"} )
+	success, self.model.sample_rate = self.speech.init( {model = path .. "ds-0.9.3.pbmm", scorer = path .. "ds-0.9.3.scorer" } )
 
 	--If success == false, sample_rate is an error
 	if not success then error("Unable to start deepSpeech engine!", self.model.sample_rate) end

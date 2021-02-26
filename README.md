@@ -11,7 +11,9 @@ The deepspeech module is complicated. My current setup has a lot of this stuff p
 	
 If you can't do those things, or you like extra work, you can do all of this stuff manually. This is also for record keeping, so I remember how I managed to get this working in the first place. So, things to get deepspeech working for Windows 10:
 	`cmake` from https://cmake.org/
-	`native_client.amd64.gpu.win.tar.xz` from https://github.com/Mozilla/DeepSpeech/releases/tag/v0.9.3 (you also need the precompiled model)
+	`native_client.amd64.gpu.win.tar.xz` from https://github.com/Mozilla/DeepSpeech/releases/tag/v0.9.3
+	`deepspeech-0.9.3-models.pbmm` from https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.pbmm
+	`deepspeech-0.9.3-models.scorer` from https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.scorer
 	`luajit` from https://luajit.org/download/LuaJIT-2.1.0-beta3.zip
 	`CUDA 10.1` from https://developer.nvidia.com/cuda-10.1-download-archive-update2?target_os=Windows&target_arch=x86_64 (Note that you have to have an Nvidia Dev login, free to make)
 	`cuDNN v7.6.4.32 for CUDA 10.1` from https://developer.nvidia.com/compute/machine-learning/cudnn/secure/7.6.5.32/Production/10.1_20191031/cudnn-10.1-windows10-x64-v7.6.5.32.zip (Also need that same Nvidia Dev login)
@@ -40,4 +42,7 @@ If you can't do those things, or you like extra work, you can do all of this stu
 10. Point the `-deepspeech_path` to the extracted folder that came from the `native_client` tar
 11. Go into the build folder, then Debug, and find lua-deepspeech.dll
 12. Place the `libdeepspeech.so` file from the `native_client` tar into your project. If unfused, place it next to main.lua, otherwise place it next to the fused .exe.
-13. Require the `lua-deepspeech.dll`
+13. Place the `deepspeech-0.9.3-models.pbmm` into a the local github project (mine, this one. Should have a folder)
+14. Place the `deepspeech-0.9.3-models.scorer` next to it.
+15. Put the `lua-deepspeech.dll` in the same folder.
+16. If you're using my project, everything should now be hooked up.
