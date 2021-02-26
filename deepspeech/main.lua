@@ -60,6 +60,17 @@ function Deepspeech:getText()
 	return text
 end
 
+function Deepspeech:boost(word, amount)
+	self.thread.give:push("boost")
+	self.thread.give:push(word)
+	self.thread.give:push(amount)
+end
+
+function Deepspeech:unboost(word)
+	self.thread.give:push("unboost")
+	self.thread.give:push(word)
+end
+
 function Deepspeech:update(dt, callback)
 	if self.mic_is_on then
 		local data, avg = self.microphone:getData(), 0

@@ -9,6 +9,7 @@ function love.load()
 
 	speech = ds_engine(mic_buffer, noise_gate, gate_timing)
 
+	speech:boost("width", 20)
 	speech:startMic()
 end
 
