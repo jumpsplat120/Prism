@@ -1,5 +1,10 @@
-# Aila
- Artifical Intelligence Language Assistant. Lua/Love2d based voice assistant.
+# Prism
+	Personally
+	Responding,
+	Intelligent
+	Search
+	Matrix
+Lua/Love2d based voice assistant.
  
 ## Notes
 The deepspeech module is complicated. My current setup has a lot of this stuff pre built, but it expects certain things:
