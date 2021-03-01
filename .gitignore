@@ -2,3 +2,4 @@ deepspeech/ds-0.9.3.pbmm
 deepspeech/ds-0.9.3.scorer
 bin/deepspeech/ds-0.9.3.pbmm
 bin/deepspeech/ds-0.9.3.scorer
+bin/wit_ai/AUTH_TOKEN
