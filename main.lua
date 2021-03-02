@@ -15,6 +15,7 @@ end
 function love.update(dt)
 	speech:update(dt, brain.think, brain)
 	wit:update(dt)
+	brain:update(dt)
 end
 
 function love.threaderror(thread)
