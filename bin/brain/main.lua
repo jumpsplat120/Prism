@@ -27,14 +27,26 @@ function Brain:new()
 	end
 
 	self.interactable_list = { 
-	lights = function()
-		return "Empty function for lights."
+	lights = function(traits, entities)
+		local text
+		if entities.on_off_toggle == true then
+			--handle patterns
+			text = "Absolutely! Turning on a random pattern."
+		elseif entities.on_off_toggle == false then
+			text = "Turning your lights off!"
+		else
+			--need to keep track of light state internally
+			text = "No worries, I'll grab those lights for you."
+		end
+		return self.tts:variant(math.random() * 10, text)
 	end, 
-	light = function()
-		return "Empty function for light."
+	light = function(traits, entities)
+		--When I have any other lights, I may want to handle this differently
+		return self.interactable_list.lights(traits, entities)
 	end,
-	leds = function()
-		return "Empty function for L E Dees."
+	leds = function(traits, entities)
+		--When I have any other lights, I might want to handle this differently
+		return self.interactable_list.lights(traits, entities)
 	end
 	}
 
@@ -78,7 +90,7 @@ end
 function Brain:interact(text, traits, entities)
 	local func, response
 	func     = self.interactable_list[entities.interactable]
-	response = entities.interactable and (func and func() or "I don't know how to interact with " .. tostring(entities.interactable)) or "What was it you wanted me to do?"
+	response = entities.interactable and (func and func(traits, entities) or "I don't know how to interact with " .. tostring(entities.interactable)) or "What was it you wanted me to do?"
 	self.tts:speak(response, self.addToBuffer)
 end
 

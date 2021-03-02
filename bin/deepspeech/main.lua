@@ -36,7 +36,7 @@ function Deepspeech:load(mic_buffer, noise_gate, gate_timing)
 	self:boost("prissy",  10)
 	self:boost("percy",  -10)
 	self:boost("prism",   10)
-	self:boost("prison", -10)
+	self:boost("prison", -20)
 	self:boost("fuck",    10)
 	self:boost("fucking", 10)
 	self:boost("fucker",  10)
@@ -54,8 +54,9 @@ end
 
 function Deepspeech:startMic()
 	if not self.microphone then
-		print("Loading default mic...")
-		self:addMic(love.audio.getRecordingDevices()[1])
+		local mic = love.audio.getRecordingDevices()[1]
+		print("Loading mic " .. mic:getName() .. "...")
+		self:addMic(mic)
 	end
 	self.microphone:start(self.buffer_size, self.sample_rate)
 	self.mic_is_on = true
@@ -63,8 +64,9 @@ end
 
 function Deepspeech:stopMic()
 	if not self.microphone then
-		print("Loading default mic...")
-		self:addMic(love.audio.getRecordingDevices()[1])
+		local mic = love.audio.getRecordingDevices()[1]
+		print("Loading mic " .. mic:getName() .. "...")
+		self:addMic(mic)
 	end
 
 	if self.mic_is_on then
