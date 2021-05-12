@@ -14,7 +14,7 @@ The deepspeech module is complicated. My current setup has a lot of this stuff p
 	You need to have the `libdeepspeech.so` file located next to either main.lua or the .exe if fused. (This is subject to change, I might try to setup some checks so this is done automatically.)
 	A microphone. Deepspeech works with just raw audio files, but the version I distribute assumes you're doing real time speech to text, and so takes in audio from an input device.
 	
-If you can't do those things, or you like extra work, you can do all of this stuff manually. This is also for record keeping, so I remember how I managed to get this working in the first place. So, things to get deepspeech working for Windows 10:
+You will almost defintely have to do all of this yourself, until I can figure out a nice way to distribute it:
 	`cmake` from https://cmake.org/
 	`native_client.amd64.gpu.win.tar.xz` from https://github.com/Mozilla/DeepSpeech/releases/tag/v0.9.3
 	`deepspeech-0.9.3-models.pbmm` from https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.pbmm
@@ -24,7 +24,7 @@ If you can't do those things, or you like extra work, you can do all of this stu
 	`cuDNN v7.6.4.32 for CUDA 10.1` from https://developer.nvidia.com/compute/machine-learning/cudnn/secure/7.6.5.32/Production/10.1_20191031/cudnn-10.1-windows10-x64-v7.6.5.32.zip (Also need that same Nvidia Dev login)
 	`7zip` from https://www.7-zip.org/
 	`lua-deepspeech` from https://github.com/bjornbytes/lua-deepspeech (just download the whole project)
-	`Visual Studio Build Tools` from https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019 (This one, like any microsoft project, is a fucking ball ache. It might not work perfectly. If the tools themselves don't work, you may need to just download visual studio, and install the c/c++ version that comes with build tools.)
+	`Visual Studio Build Tools` from https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019 (You're gunna need the C/C++ stuff, just download the whole thing)
 
 1. Download each thing listed above. Install the things that can be installed. Extract the things that can be extracted using 7zip.
 2. Set up sys PATH. You need:
@@ -34,7 +34,7 @@ If you can't do those things, or you like extra work, you can do all of this stu
 	d. <install_location>/extras/CUPTI/lib64 for CUDA
 	e. <install_location>/include for CUDA
 3. RESTART YOUR COMPUTER. The PATH vars aren't set until a restart.
-4. Open up the build tools, and `cd` your way into the folder where you extracted the luajit stuff.
+4. Open up the x64 build tools, and `cd` your way into the folder where you extracted the luajit stuff.
 5. Drag drop the `msvcbuild.bat` onto the command prompt. It "should" run without any errors. If it has errors, fuck. Otherwise, you should get some files generated.
 6. In the extracted folder for lua-deepspeech, open CMakeLists.text
 7. Remove:
