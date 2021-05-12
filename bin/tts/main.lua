@@ -84,8 +84,8 @@ end
 function typeis(value, types, name)
 	local is_type = false
 	for _, val in ipairs(types) do
-		is_type = type(value) == val and type(value) or false
-		if is_type then break end
+		is_type = type(value) == val
+		if is_type == false then break end
 	end
 	if is_type == false then error("Invalid type; type of " .. name .. " was " .. type(value) .. ", expected " .. concat(types)) else return is_type end
 end
@@ -235,11 +235,13 @@ end
 function TTS:set_voice(val)
 	typeis(val, {"string"}, "voice")
 	
+	print("Setting voice '" .. val .. "'...")
 	local set_voice
 	
 	for _, voice in ipairs(self.voices) do
 		if voice == val or voice:match(val) then
 			set_voice = voice
+			print("Matched voice to '" .. voice .. "'!")
 			break
 		end
 	end
@@ -255,7 +257,8 @@ function TTS:set_voice(val)
 			--Get all voice keys from reg
 			data = reg:getSubEntries(root, path)
 			
-			for _, entry in ipairs(data) do 
+			for _, entry in ipairs(data) do
+				print(entry)
 				if entry:match(voice_name) then 
 					entry_name = entry
 					self.data.cereproc.ver = tonumber(entry:match("(%d)%.%d%.%d$"))
@@ -617,6 +620,8 @@ function TTS:speak(ssml, callback)
 		run(self, "ms", false, self.data.rate, self.data.bit_depth, self.data.channel_mode, self.data.voice, ssml, full_path) 
 		love.audio.newSource(relative_path, "static"):play()
 	end
+
+	print(ssml)
 end
 
 return TTS()

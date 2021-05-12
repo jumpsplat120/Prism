@@ -1,11 +1,7 @@
-local working_dir, ds_path, shared_path, Object, Handler
+local ds_path, Object, Handler
 
-
-working_dir = love.filesystem.getWorkingDirectory()
-ds_path     = working_dir .. "/bin/deepspeech/"
-shared_path = working_dir .. "/bin/shared/"
-
-Object      = require(shared_path .. "classic")
+ds_path     = love.filesystem.getWorkingDirectory() .. "/bin/deepspeech/"
+Object      = require("/bin/shared/classic")
 Handler     = Object:extend()
 
 require("love.sound")
@@ -13,7 +9,7 @@ require("love.sound")
 function Handler:new()
 	local success
 
-	self.speech = require(ds_path .. "lua-deepspeech")
+	self.speech = require("/bin/deepspeech/lua-deepspeech")
 	self.model  = {}
 	self.thread = {}
 	self.text   = ""
@@ -25,7 +21,7 @@ function Handler:new()
 	success, self.model.sample_rate = self.speech.init( { model = ds_path .. "ds-0.9.3.pbmm", scorer = ds_path .. "ds-0.9.3.scorer", beamWidth = 2048 } )
 
 	--If success == false, sample_rate is an error
-	if not success then error("Unable to start deepSpeech engine!", self.model.sample_rate) end
+	if not success then print("Unable to start deepSpeech engine!", self.model.sample_rate) end
 
 	self:startStream()
 

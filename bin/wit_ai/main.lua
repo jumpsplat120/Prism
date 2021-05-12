@@ -13,6 +13,7 @@ end
 
 function WitInterface:update(dt)
 	if self.data.response.body then
+		print("Recieved wit response!")
 		self.data.callback(json.decode(self.data.response.body))
 		self.data.response = {}
 		self.data.callback = function() end

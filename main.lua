@@ -1,9 +1,11 @@
 local speech, tts, wit, brain
 
+love.window.close()
+
+inspect = require("bin/shared/inspect")
 speech  = require("bin/deepspeech/main")
 tts     = require("bin/tts/main")
 wit     = require("bin/wit_ai/main")
-inspect = require("bin/shared/inspect")
 brain   = require("bin/brain/main")
 
 function love.load()

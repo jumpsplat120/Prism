@@ -161,8 +161,9 @@ end
 --]]
 function reg:getSubEntries(root, path)
 	local result, type, message, ret_val
-	
+	print(root, path)
 	result        = ffi.string(self.data.reg.reg(root .. "|" .. path .. "|get_subkeys||"))
+	print(result)
 	type, message = result:match("(.+)=(.*)")
 	ret_val       = {}
 	

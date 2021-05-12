@@ -14,11 +14,14 @@ function Brain:new()
 	end
 
 	self.internalChain = function(tbl)
+		print(inspect(tbl))
 		if tbl.intents[1] then
 			local entities, traits = {}, {}
 			for key, entry in pairs(tbl.entities) do entities[key:match("([^:]+):[^:]+")] = self.parseToRealDataType(entry[1].value) end
 			for key, entry in pairs(tbl.traits) do traits[key:find("wit%$") and key:match("wit%$(.+)") or key] = self.parseToRealDataType(entry[1].value) end
 			if self[tbl.intents[1].name] then self[tbl.intents[1].name](self, tbl.text, traits, entities) else self.tts:speak("No intent was found.", self.addToBuffer) end
+		else
+			self.tts:speak("No intent was found.", self.addToBuffer)
 		end
 	end
 
@@ -58,6 +61,8 @@ function Brain:load(wit, tts, speech)
 	self.wit    = wit
 	self.tts    = tts
 	self.speech = speech
+
+	self.tts:set_voice("Heather")
 end
 
 function Brain:update(dt)
@@ -85,6 +90,7 @@ function Brain:think(text)
 end
 
 function Brain:conversation(text, traits, entities)
+	self.tts:speak("I heard a conversation.", self.addToBuffer)
 end
 
 function Brain:interact(text, traits, entities)
@@ -95,12 +101,15 @@ function Brain:interact(text, traits, entities)
 end
 
 function Brain:question(text, traits, entities)
+	self.tts:speak("I heard a question.", self.addToBuffer)
 end
 
 function Brain:search(text, traits, entities)
+	self.tts:speak("I heard a search.", self.addToBuffer)
 end
 
 function Brain:unknown(text, traits, entities)
+	self.tts:speak("I did not know what that was.", self.addToBuffer)
 end
 
 return Brain()

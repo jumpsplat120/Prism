@@ -106,7 +106,6 @@ function Deepspeech:update(dt, callback, cb_self)
 			end
 
 			if self.noise_gate < avg / data:getSampleCount() then
-
 				self.gate_is_on = false
 				self.gate_timer = 0
 				for i, data in ipairs(self.data_buffer) do
