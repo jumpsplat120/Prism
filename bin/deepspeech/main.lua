@@ -16,9 +16,6 @@ function Deepspeech:new()
 	self.thread.give = love.thread.getChannel("dshandler-in")
 
 	self.sample_rate = self.thread.get:demand()
-	self.buffer_size = self.sample_rate * 10
-	self.noise_gate  = .5
-	self.gate_timing = .75
 	self.gate_is_on  = true
 	self.mic_is_on   = false
 	self.waiting     = false
@@ -26,17 +23,14 @@ function Deepspeech:new()
 end
 
 function Deepspeech:load(mic_buffer, noise_gate, gate_timing)
-	self.buffer_size = self.buffer_size and self.sample_rate * 10
-	self.noise_gate  = self.noise_gate  and .05
-	self.gate_timing = self.gate_timing and 1.5
+	self.buffer_size = mic_buffer  or self.sample_rate * 10
+	self.noise_gate  = noise_gate  or .05
+	self.gate_timing = gate_timing or 1.5
 
 	--Boost curses because I've got a dirty mouth :L
 	self:boost("priss",   10)
-	self:boost("press",  -10)
 	self:boost("prissy",  10)
-	self:boost("percy",  -10)
 	self:boost("prism",   10)
-	self:boost("prison", -20)
 	self:boost("fuck",    10)
 	self:boost("fucking", 10)
 	self:boost("fucker",  10)
@@ -116,9 +110,9 @@ function Deepspeech:update(dt, callback, cb_self)
 			end
 			
 			if self.gate_is_on then
-				--Hopefully sending the previous 10 data buffers will help with catching the first word.
+				--Hopefully sending the previous 100 data buffers will help with catching the first word.
 				self.data_buffer[#self.data_buffer + 1] = data
-				if #self.data_buffer > 10 then table.remove(self.data_buffer, 1) end
+				if #self.data_buffer > 100 then table.remove(self.data_buffer, 1) end
 			else
 				self.thread.give:push(data)
 				if self.gate_timer < self.gate_timing then

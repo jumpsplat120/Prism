@@ -258,7 +258,6 @@ function TTS:set_voice(val)
 			data = reg:getSubEntries(root, path)
 			
 			for _, entry in ipairs(data) do
-				print(entry)
 				if entry:match(voice_name) then 
 					entry_name = entry
 					self.data.cereproc.ver = tonumber(entry:match("(%d)%.%d%.%d$"))
